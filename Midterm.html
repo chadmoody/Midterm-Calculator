@@ -1,0 +1,162 @@
+<html>
+    <head>
+        <title>Midterm Project</title>
+
+        <style>
+            body{padding-top:100px;font-family: Arial, Helvetica, sans-serif;background-color: #1a688f;}
+            #Hello{line-height:60px;font-size:40px;text-align:center; width:225px;color: white;}
+            #frame{background-color:dimgray;font-size:24px;width:350px; height: 415px; padding-top:20px;padding-bottom:20px;}
+            #button{font-size: 40px; margin: 2%; width: 15%; }
+            #content{background-color:rgb(252, 206, 21);width: 280px; height: 25px; padding:20px; margin-bottom:30px;}
+            
+            </style>
+    </head>
+    <body>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <center>
+            <div id="Hello"></div><p>
+                <div id="frame">
+                    <div id="content"> </div><p>
+                        <div id='buttons'>
+                            <button id="button" name="1" value="1">1</button>
+                            <button id="button" name="2" value="2">2</button>
+                            <button id="button" name="3" value="3">3</button>
+                            <button id="button" name="+" value="+">+</button>
+                        </div>
+                        <div id='buttons'>
+                            <button id="button" name="4" value="4">4</button>
+                            <button id="button" name="5" value="5">5</button>
+                            <button id="button" name="6" value="6">6</button>
+                            <button id="button" name="-" value="-">-</button>
+                        </div>
+                        <div id='buttons'>
+                            <button id="button" name="7" value="7">7</button>
+                            <button id="button" name="8" value="8">8</button>
+                            <button id="button" name="9" value="9">9</button>
+                            <button id="button" name="*" value="x">x</button>
+                        </div>
+                        <div id='buttons'>
+                            <button id="button" name="C" value="Clear"
+                                style="color:
+                                red">C</button>
+                            <button id="button" name="/" value="/">/</button>
+                            <button id="button" name="0" value="0">0</button>
+                            <button id="button" name="^" value="^">^</button>
+                        </div>
+                        <div id='buttons'>
+                            <button id="button" name="=" value="="
+                                onClick="doMathThings()">=</button>
+                        </div>
+                    </div>
+                </center>
+
+
+            </body>
+            <script type="text/javascript">
+        var first = 0;
+        var sign = "v";
+        var sec = 0;
+        var num = 1;
+        var clear = 0;
+        var count = 0;
+
+        var HelloX  = prompt('Enter your name:','');
+       
+            
+$(document).ready(function() {
+$("#Hello").html("Hello "+HelloX);
+        });            
+
+    $("button").click(function() { // Actions when button is clicked
+    var fired_button = $(this).val();
+    
+    if((Number(fired_button)||(fired_button == 0))&& (num == 1)){ // First Number that is enter
+        if(clear == 1){
+            document.getElementById("content").innerHTML = "";
+            clear--;
+            first = 0;
+        }
+        first += fired_button
+        document.getElementById("content").innerHTML += fired_button;
+        
+    }
+    
+    
+    if((isNaN(fired_button))&&(fired_button != "=")&&(fired_button != "Clear")){// The sign that is requested
+        sign = fired_button
+        document.getElementById("content").innerHTML += " " + fired_button + " ";
+        num++;
+       
+    }
+    
+    if((Number(fired_button)||(fired_button == 0)) && (num == 2)){ // Second Number that is entered after sign
+        sec += fired_button
+        document.getElementById("content").innerHTML += fired_button;
+        
+    }if(fired_button == "Clear"){
+        defaultThings();
+        document.getElementById("content").innerHTML = "";
+        
+    }
+    
+    });
+    
+    
+
+function doMathThings(){ // Does math
+
+    if (sign == "+")
+    {
+        document.getElementById("content").innerHTML = Number(first) + Number(sec);
+        
+        defaultThings();
+        
+    }
+    else if (sign == "-")
+    {
+        document.getElementById("content").innerHTML = Number(first) - Number(sec);
+        defaultThings();
+    }
+    else if (sign == "x")
+    {
+        document.getElementById("content").innerHTML = Number(first) * Number(sec);
+        defaultThings();
+    } else if (sign == "/"){
+        document.getElementById("content").innerHTML = Number(first) / Number(sec);
+        defaultThings();
+
+    }else if (sign == "^"){
+        powerMath();
+    }
+    clear = 1;
+    first = document.getElementById("content").innerHTML;
+    }
+
+
+function powerMath()
+{
+    var firstn = Number(first);
+    for(var count = 0; count < (sec-1); count++){ // long way to do exponent
+        
+        firstn *= Number(first);
+    
+}
+document.getElementById("content").innerHTML = Number(firstn);
+defaultThings();
+}
+
+function defaultThings(){ //reset values
+    first = 0;
+    sign = "v";
+    sec = 0;
+    num = 1;
+ }
+
+ function clearThings(){ //reset values
+    sign = "v";
+    sec = 0;
+    num = 1;
+ }
+    </script>
+        </html>
